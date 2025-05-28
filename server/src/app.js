@@ -1,6 +1,7 @@
 const express = require('express')
 const cors = require('cors')
 const { fetchWordData } = require('./services/ollamaService')
+const wordRoutes = require('./routes/wordRoutes')
 
 const app = express()
 const port = process.env.PORT || 3000
@@ -8,7 +9,11 @@ const port = process.env.PORT || 3000
 app.use(cors())
 app.use(express.json())
 
-app.get('/api/words/:word', async (req, res) => {
+// 注册 Word 路由（数据库操作）
+app.use('/api', wordRoutes)
+
+// AI 查询路由
+app.get('/api/ai/words/:word', async (req, res) => {
   try {
     const word = req.params.word.toLowerCase()
     const wordData = await fetchWordData(word)
