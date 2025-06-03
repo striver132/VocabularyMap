@@ -22,7 +22,7 @@ async function fetchWordData(word) {
       messages: [
         {
           role: 'user',
-          content: `For the word "${word}", provide the information in JSON format: word, part_of_speech, definition, example_sentence, pronunciation, synonyms, antonyms. Only return a valid JSON object, do not include any explanation or markdown.`
+          content: `For the word 【"${word}"】, provide the information in JSON format: word, part_of_speech, definition, example_sentence, pronunciation, synonyms, antonyms. Only return a valid JSON object, do not include any explanation or markdown.`
         }
       ]
     }, { 
