@@ -3,14 +3,19 @@ const cors = require('cors')
 const { fetchWordData } = require('./services/ollamaService')
 const wordRoutes = require('./routes/wordRoutes')
 
+const folderRoutes = require('./routes/folders')
+
 const app = express()
 const port = process.env.PORT || 3000
 
 app.use(cors())
 app.use(express.json())
 
-// 注册 Word 路由（数据库操作）
+// 注册路由
+
 app.use('/api', wordRoutes)
+
+app.use('/api/folders', folderRoutes)
 
 // AI 查询路由
 app.get('/api/ai/words/:word', async (req, res) => {
@@ -35,5 +40,11 @@ if (require.main === module) {
     console.log(`Server running at http://localhost:${port}`)
   })
 }
+
+// 错误处理中间件
+app.use((err, req, res, next) => {
+  console.error(err.stack)
+  res.status(500).json({ error: '服务器内部错误' })
+})
 
 module.exports = app
